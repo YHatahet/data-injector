@@ -1,0 +1,23 @@
+{
+  "name": "data-injector",
+  "version": "1.0.0",
+  "description": "Easily send data between different protocols and databases",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YHatahet/data-injector.git"
+  },
+  "author": "Yamen Hatahet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YHatahet/data-injector/issues"
+  },
+  "homepage": "https://github.com/YHatahet/data-injector#readme",
+  "dependencies": {
+    "bull": "^3.20.1",
+    "lodash": "^4.17.20"
+  }
+}

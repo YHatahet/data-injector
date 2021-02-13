@@ -1,0 +1,9 @@
+.vscode
+.idea
+.DS_Store
+.env
+config.js
+reference_injector.js
+test_file.js
+
+node_modules
