@@ -18,6 +18,9 @@
   "homepage": "https://github.com/YHatahet/data-injector#readme",
   "dependencies": {
     "bull": "^3.20.1",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "mqtt": "^4.2.6",
+    "node-schedule": "^2.0.0",
+    "queue-fifo": "^0.2.6"
   }
 }
