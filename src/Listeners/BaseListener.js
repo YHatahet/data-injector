@@ -34,7 +34,7 @@ module.exports = class BaseListener {
     if (f instanceof Function) {
       this.__onDataFunction = f;
     } else {
-      console.error("Inserted object is not of type 'Function'");
+      throw new Error("Inserted object is not of type 'Function'");
     }
   }
 };

@@ -43,7 +43,7 @@ module.exports = class MqttPublisher extends BasePublisher {
       });
 
       mqttClient.on("error", (err) => {
-        console.error(`mqttPublisher Error: ${err}`);
+        throw new Error(`mqttPublisher Error: ${err}`);
       });
 
       mqttClient.on("close", () => {
