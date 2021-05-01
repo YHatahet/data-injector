@@ -1,6 +1,5 @@
 "use strict";
 
-
 /**
  * Base Publisher class
  * Abstract publisher class to be overridden
@@ -26,5 +25,4 @@ module.exports = class BasePublisher {
   publish(data) {
     console.error("Must Override this function in Child Publisher");
   }
-
 };

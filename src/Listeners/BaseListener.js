@@ -8,7 +8,7 @@ module.exports = class BaseListener {
   /**
    * Base Listener Constructor
    * @param onDataFunction Function called as a callback when data arrives to the listener
-  //  */
+   */
   constructor({ onDataFunction }) {
     this.__onDataFunction = (data) => {
       return console.log(`No callback function specified. Input data: ${data}`);
@@ -37,5 +37,4 @@ module.exports = class BaseListener {
       console.error("Inserted object is not of type 'Function'");
     }
   }
-
 };
