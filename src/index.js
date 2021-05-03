@@ -9,7 +9,6 @@ const run = () => {
     const runner = new Runner();
     library.init();
     runner.init();
-    library.pair("mqtt", "mqtt"); //TODO make part of config
 
     const publishers = library.publishers;
     const publisherQueues = library.publisherQueues;

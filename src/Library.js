@@ -65,21 +65,42 @@ module.exports = class Library {
    * Pairs a listener and a publisher based on the input keys, and returns a
    * @param {String} listenerKey key name of an active listener
    * @param {String} publisherKey key name of an active publisher
+   * @returns {Boolean} `true` if successful, otherwise `false`
    */
   pair(listenerKey, publisherKey) {
-    if (!this.listeners[listenerKey] && this.publisherQueues[publisherKey]) {
+    if (
+      this.listeners[listenerKey] && // listener is active
+      this.publishers[publisherKey] && // publisher is active
+      this.publisherQueues[publisherKey] // publisher has a queue
+    ) {
       this.listenerQueues[listenerKey] = this.publisherQueues[publisherKey];
       this.listeners[listenerKey].onData = this.listenerQueues[
         listenerKey
       ].enqueue.bind(this.listenerQueues[listenerKey]);
+      return true;
     }
+    return false;
   }
 
+  _initPairs() {
+    for (const key in config.pairs) {
+      if (this.pair(key, config.pairs[key])) {
+        console.log(
+          `Library: Successfully paired input "${key}" to output "${config.pairs[key]}"`
+        );
+      } else {
+        console.log(
+          `Library: Could not pair input "${key}" to output "${config.pairs[key]}"`
+        );
+      }
+    }
+  }
   /**
    * Initializes both listeners and publishers
    */
   init() {
     this._initListeners(this.options);
     this._initPublishers(this.options);
+    this._initPairs();
   }
 };
