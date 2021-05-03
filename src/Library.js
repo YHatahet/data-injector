@@ -59,8 +59,12 @@ module.exports = class Library {
    * @param {String} publisherKey key name of an active publisher
    */
   pair(listenerKey, publisherKey) {
-    //TODO check if listenerKey and publisherKey are valid
-    this.listenerQueues[listenerKey] = this.publisherQueues[publisherKey];
+    if (!this.listeners[listenerKey] && this.publisherQueues[publisherKey]) {
+      this.listenerQueues[listenerKey] = this.publisherQueues[publisherKey];
+      this.listeners[listenerKey].onData = this.listenerQueues[
+        listenerKey
+      ].enqueue.bind(this.listenerQueues[listenerKey]);
+    }
   }
 
   init() {
