@@ -20,6 +20,7 @@ module.exports = class MqttListener extends BaseListener {
   _startListener(opts) {
     try {
       this.options = opts;
+      const dataTopic = opts.topic;
       if (isNumeric(opts.timeToReconnect)) {
         const time = Number(opts.timeToReconnect);
         this.timeToReconnect = time < 10000 ? 10000 : time;
