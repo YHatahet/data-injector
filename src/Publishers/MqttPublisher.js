@@ -2,7 +2,7 @@
 
 const BasePublisher = require("./BasePublisher");
 const MQTT = require("mqtt");
-const get = require("lodash.get");
+const get = require("lodash/get");
 const { isNumeric } = require("../utils");
 
 /**
@@ -17,7 +17,7 @@ module.exports = class MqttPublisher extends BasePublisher {
     this.options;
   }
 
-  __startPublisher(OPTIONS) {
+  _startPublisher(OPTIONS) {
     try {
       this.options = OPTIONS;
 
@@ -26,7 +26,7 @@ module.exports = class MqttPublisher extends BasePublisher {
         this.timeToReconnect = time < 10000 ? 10000 : time;
       }
 
-      const options = this.__extractMqttClientOptions(OPTIONS);
+      const options = this._extractMqttClientOptions(OPTIONS);
       const mqttClient = MQTT.connect({
         ...options,
         keepalive: 0,
@@ -52,7 +52,7 @@ module.exports = class MqttPublisher extends BasePublisher {
             this.timeToReconnect / 1000
           ).toFixed(1)} seconds`
         );
-        this.__mqttReconnectLogic(mqttClient);
+        this._mqttReconnectLogic(mqttClient);
       });
     } catch (err) {
       console.error(`mqttPublisher: ${err}`);
@@ -60,22 +60,18 @@ module.exports = class MqttPublisher extends BasePublisher {
   }
 
   publish(data) {
-    if (isNumeric(data)) {
-      if (this.mqttClient?.connected) {
-        this.mqttClient?.publish(this.options?.topic, String(data));
-        console.info(
-          `mqttPublisher: Sending to '${this.options.topic}' --> ${data}`
-        );
-      } else {
-        console.info("reconnecting");
-        this.mqttClient?.reconnect();
-      }
+    if (this.mqttClient?.connected) {
+      this.mqttClient?.publish(this.options?.topic, String(data));
+      console.info(
+        `mqttPublisher: Sending to '${this.options.topic}' --> ${data}`
+      );
     } else {
-      throw new Error("Set point value is not numeric");
+      console.info("reconnecting");
+      this.mqttClient?.reconnect();
     }
   }
 
-  __mqttReconnectLogic() {
+  _mqttReconnectLogic() {
     if (this.mqttClient instanceof MQTT.MqttClient) {
       if (!this.mqttClient.connected) {
         setTimeout(() => {
@@ -94,7 +90,7 @@ module.exports = class MqttPublisher extends BasePublisher {
    * Check and extract necessary mqtt client options, then return the newly valid formed object.
    * @param {*} OPTIONS Object containing the mqtt options for the publisher
    */
-  __extractMqttClientOptions(OPTIONS) {
+  _extractMqttClientOptions(OPTIONS) {
     // default options
     const options = {
       host: "broker.mqtt-dashboard.com",
