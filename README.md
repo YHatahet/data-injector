@@ -7,7 +7,7 @@ The plan is to have a message queue for each group of listeners and publishers. 
 ## Setup
 
 1. **Clone the repo.** Simply run `git clone https://github.com/YHatahet/data-injector.git`
-2. <_optional_> **Create listeners and publishers.** If the listeners and publishers you require do not exist in the list, recreate them. Listeners require `startListener` and `onData` functions to be implemented, while Publishers require `startPublisher` and `publish` functions. Listeners extend the `BaseListener` class, and Publishers the `BasePublisher` class.
+2. **Create listeners and publishers.** <_optional_> -  If the listeners and publishers you require do not exist in their respective folders, recreate them. Listeners require `startListener` and `onData` functions to be implemented, while Publishers require `startPublisher` and `publish` functions. Listeners extend the `BaseListener` class, and Publishers the `BasePublisher` class.
 3. **Create the config file.** A sample file named `sample-config.js` exists to assist in creating the config file. The parameters for each listener and publisher are passed in as arguments to the `startListener` and `startPublisher` functions.
 
 
@@ -38,4 +38,7 @@ If there are no issues with the listeners and publishers, and the config file is
 
 * ### <u>[MQTT](https://www.npmjs.com/package/mqtt)</u>
   * Client library for the mqtt protocol. Will be used for the mqtt listeners and publishers.
+
+* ### <u>[Express](https://www.npmjs.com/package/express)</u>
+  *  Popular web framework for Nodejs. Will be used for HTTP based listeners and publishers.
 
