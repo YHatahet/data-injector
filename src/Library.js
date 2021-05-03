@@ -7,22 +7,25 @@
 const config = require("./config");
 const ListenerMap = require("./Listeners/index");
 const PublisherMap = require("./Publishers/index");
+const Queue = require("queue-fifo");
 
 module.exports = class Library {
   constructor(OPTIONS) {
-    this.listeners = {}; //listener instances
-    this.publishers = {}; //publisher instances
+    this.listeners = {}; //{listenerKey : listener instance}
+    this.publishers = {}; //{publisherKey : publisher instance}
+    this.publisherQueues = {}; // {publisherKey : queue instance}
+    this.listenerQueues = {}; // {listenerKey : queue instance}
     this.options = OPTIONS;
   }
 
-  __initListeners(options) {
+  _initListeners(options) {
     if (config && config.listeners) {
-      for (const key of Object.keys(config.listeners)) {
+      for (const key in config.listeners) {
         try {
           if (ListenerMap[key]) {
             this.listeners[key] = new ListenerMap[key](options);
             if (this.listeners[key]) {
-              this.listeners[key].__startListener(config.listeners[key]);
+              this.listeners[key]._startListener(config.listeners[key]);
             }
           }
         } catch (err) {
@@ -32,14 +35,15 @@ module.exports = class Library {
     }
   }
 
-  __initPublishers(options) {
+  _initPublishers(options) {
     if (config && config.publishers) {
-      for (const key of Object.keys(config.publishers)) {
+      for (const key in config.publishers) {
         try {
           if (PublisherMap[key]) {
             this.publishers[key] = new PublisherMap[key](options);
             if (this.publishers[key]) {
-              this.publishers[key].__startPublisher(config.publishers[key]);
+              this.publishers[key]._startPublisher(config.publishers[key]);
+              this.publisherQueues[key] = new Queue(); //attach a queue to each publisher
             }
           }
         } catch (err) {
@@ -49,8 +53,18 @@ module.exports = class Library {
     }
   }
 
+  /**
+   * Pairs a listener and a publisher based on the input keys, and returns a
+   * @param {String} listenerKey key name of an active listener
+   * @param {String} publisherKey key name of an active publisher
+   */
+  pair(listenerKey, publisherKey) {
+    //TODO check if listenerKey and publisherKey are valid
+    this.listenerQueues[listenerKey] = this.publisherQueues[publisherKey];
+  }
+
   init() {
-    this.__initListeners(this.options);
-    this.__initPublishers(this.options);
+    this._initListeners(this.options);
+    this._initPublishers(this.options);
   }
 };
