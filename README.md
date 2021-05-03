@@ -8,7 +8,7 @@ The plan is to have a message queue for each group of listeners and publishers. 
 
 1. **Clone the repo.** Simply run `git clone https://github.com/YHatahet/data-injector.git`
 2. **Create listeners and publishers.** <_optional_> -  If the listeners and publishers you require do not exist in their respective folders, recreate them. Listeners require the `startListener` function to be implemented, and within it a call to the `_onDataFunction` function with an argument to be passed to the publishers. Publishers require both `startPublisher` and `publish` functions to be implemented separately. Listeners extend the `BaseListener` class, and Publishers the `BasePublisher` class.
-3. **Create the config file.** A sample file named `sample-config.js` exists to assist in creating the config file. The parameters for each listener and publisher are passed in as arguments to the `startListener` and `startPublisher` functions.
+3. **Create the config file.** Create a file named `config.js`, and place it inside `./data-injector/src` A sample file named `sample-config.js` exists to assist in creating the config file. The parameters for each listener and publisher are passed in as arguments to the `startListener` and `startPublisher` functions.
 
 
 ## Start
