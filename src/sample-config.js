@@ -26,4 +26,9 @@ module.exports = {
       clean: true,
     },
   },
+  pairs: {
+    protocolA: "protocolB",
+    // ex:
+    // http: "mqtt",
+  },
 };
