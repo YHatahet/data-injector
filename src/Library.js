@@ -11,10 +11,10 @@ const Queue = require("queue-fifo");
 
 module.exports = class Library {
   constructor(OPTIONS) {
-    this.listeners = {}; //{listenerKey : listener instance}
-    this.publishers = {}; //{publisherKey : publisher instance}
-    this.publisherQueues = {}; // {publisherKey : queue instance}
-    this.listenerQueues = {}; // {listenerKey : queue instance}
+    this.listeners = {}; // { listenerKey : listener instance }
+    this.publishers = {}; // { publisherKey : publisher instance }
+    this.publisherQueues = {}; // { publisherKey : queue instance }
+    this.listenerQueues = {}; // { listenerKey : queue instance }
     this.options = OPTIONS;
   }
 
@@ -82,6 +82,9 @@ module.exports = class Library {
     return false;
   }
 
+  /**
+   * Go through the config file, iterate over pairs and pair them
+   */
   _initPairs() {
     for (const key in config.pairs) {
       if (this.pair(key, config.pairs[key])) {

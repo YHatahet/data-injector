@@ -45,3 +45,10 @@ If there are no issues with the listeners and publishers, and the config file is
 * ### <u>[Body-Parser](https://www.npmjs.com/package/body-parser)</u>
   * Node.js body parsing middleware which allows us to read the body of a request.
 
+## TODO
+
+- [ ] Currently each listener/publisher class can have only one instance without using multiple files. 
+- [ ] Add ability to change runner period instead of having it fixed at 1 minute.
+- [ ] Currently each listener can only be paired to one publisher (however publishers can have more than one listener).
+- [ ] Add more listeners and publishers (TCP, UDP, databases)
+- [ ] Add an "unpair" function

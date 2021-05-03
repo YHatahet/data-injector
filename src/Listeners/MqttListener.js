@@ -48,8 +48,8 @@ module.exports = class MqttListener extends BaseListener {
         try {
           console.info(`mqttListener on ${topic}: ${m_buff}`);
 
-          // Remove leading and trailing white spaces
-          const msgValue = m_buff.toString().trim();
+          // Convert buffer to string
+          const msgValue = m_buff.toString();
 
           // Check that the message exists
           if (msgValue === "") throw new Error("Empty message detected");
