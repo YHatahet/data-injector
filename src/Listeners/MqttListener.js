@@ -9,28 +9,23 @@ const { isNumeric } = require("../utils");
  * MQTT Listener Class
  */
 module.exports = class MqttListener extends BaseListener {
-  constructor(OPTIONS) {
-    super(OPTIONS);
+  constructor() {
+    super();
     this.timeToReconnect = 10000;
     this.protocol = "mqtt";
     this.mqttClient;
-    this.options = OPTIONS;
+    this.options;
   }
 
-  /**
-   * Starts mqtt Listener
-   * @param {*} OPTIONS Object containing options required
-   */
-  _startListener(OPTIONS) {
+  _startListener(opts) {
     try {
-      const dataTopic = OPTIONS.topic;
-
-      if (isNumeric(OPTIONS.timeToReconnect)) {
-        const time = Number(OPTIONS.timeToReconnect);
+      this.options = opts;
+      if (isNumeric(opts.timeToReconnect)) {
+        const time = Number(opts.timeToReconnect);
         this.timeToReconnect = time < 10000 ? 10000 : time;
       }
 
-      const options = this._extractMqttClientOptions(OPTIONS);
+      const options = this._extractMqttClientOptions(opts);
       const mqttClient = MQTT.connect({
         ...options,
         keepalive: 0,
@@ -87,6 +82,9 @@ module.exports = class MqttListener extends BaseListener {
     }
   }
 
+  /**
+   * Logic for attempting to reconnect to the mqtt server in case of a connection failure.
+   */
   _mqttReconnectLogic() {
     if (this.mqttClient instanceof MQTT.MqttClient) {
       if (!this.mqttClient.connected) {

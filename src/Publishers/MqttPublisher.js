@@ -17,16 +17,20 @@ module.exports = class MqttPublisher extends BasePublisher {
     this.options;
   }
 
-  _startPublisher(OPTIONS) {
+  /**
+   * Starts mqtt Publisher
+   * @param {*} opts Object containing options required
+   */
+  _startPublisher(opts) {
     try {
-      this.options = OPTIONS;
+      this.options = opts;
 
-      if (isNumeric(OPTIONS.timeToReconnect)) {
-        const time = Number(OPTIONS.timeToReconnect);
+      if (isNumeric(opts.timeToReconnect)) {
+        const time = Number(opts.timeToReconnect);
         this.timeToReconnect = time < 10000 ? 10000 : time;
       }
 
-      const options = this._extractMqttClientOptions(OPTIONS);
+      const options = this._extractMqttClientOptions(opts);
       const mqttClient = MQTT.connect({
         ...options,
         keepalive: 0,
@@ -36,10 +40,8 @@ module.exports = class MqttPublisher extends BasePublisher {
       this.mqttClient = mqttClient;
 
       mqttClient.on("connect", () => {
-        console.info(
-          `mqttPublisher: Connected to ${OPTIONS.host}:${OPTIONS.port}`
-        );
-        console.info(`mqttPublisher: Publishing to ${OPTIONS.topic}`);
+        console.info(`mqttPublisher: Connected to ${opts.host}:${opts.port}`);
+        console.info(`mqttPublisher: Publishing to ${opts.topic}`);
       });
 
       mqttClient.on("error", (err) => {
@@ -71,6 +73,9 @@ module.exports = class MqttPublisher extends BasePublisher {
     }
   }
 
+  /**
+   * Logic for attempting to reconnect to the mqtt server in case of a connection failure.
+   */
   _mqttReconnectLogic() {
     if (this.mqttClient instanceof MQTT.MqttClient) {
       if (!this.mqttClient.connected) {

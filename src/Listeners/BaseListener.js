@@ -20,9 +20,10 @@ module.exports = class BaseListener {
 
   /**
    * Must override in child instance.
-   * Starts the listener
+   * Starts Listener
+   * @param {*} opts Object containing options required
    */
-  startListener(options) {
+  _startListener(opts) {
     console.error("Must Override this function in Child Listener");
   }
 

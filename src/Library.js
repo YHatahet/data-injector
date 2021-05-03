@@ -18,6 +18,10 @@ module.exports = class Library {
     this.options = OPTIONS;
   }
 
+  /**
+   * Initialize listeners
+   * @param {*} options
+   */
   _initListeners(options) {
     if (config && config.listeners) {
       for (const key in config.listeners) {
@@ -35,6 +39,10 @@ module.exports = class Library {
     }
   }
 
+  /**
+   * Initialize publishers
+   * @param {*} options
+   */
   _initPublishers(options) {
     if (config && config.publishers) {
       for (const key in config.publishers) {
@@ -67,6 +75,9 @@ module.exports = class Library {
     }
   }
 
+  /**
+   * Initializes both listeners and publishers
+   */
   init() {
     this._initListeners(this.options);
     this._initPublishers(this.options);

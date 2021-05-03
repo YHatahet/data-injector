@@ -12,15 +12,17 @@ module.exports = class BasePublisher {
 
   /**
    * Must override in child instance.
-   * Starts the publisher
+   * Starts Publisher
+   * @param {*} opts Object containing options required
    */
-  _startPublisher(options) {
+  _startPublisher(opts) {
     console.error("Must Override this function in Child Publisher");
   }
 
   /**
    * Must override in child instance.
    * Publishes data based on the configuration file
+   * @param {*} data Data to be published
    */
   publish(data) {
     console.error("Must Override this function in Child Publisher");
