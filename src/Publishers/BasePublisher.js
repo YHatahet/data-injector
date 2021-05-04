@@ -15,7 +15,7 @@ module.exports = class BasePublisher {
    * Starts Publisher
    * @param {*} opts Object containing options required
    */
-  _startPublisher(opts) {
+  startPublisher(opts) {
     console.error("Must Override this function in Child Publisher");
   }
 

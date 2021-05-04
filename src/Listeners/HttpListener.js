@@ -16,7 +16,7 @@ module.exports = class HttpListener extends BaseListener {
     this.protocol = "http";
   }
 
-  _startListener(OPTIONS) {
+  startListener(OPTIONS) {
     app
       .post("/", textParser, (req, res) => {
         try {

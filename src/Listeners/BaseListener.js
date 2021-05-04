@@ -23,7 +23,7 @@ module.exports = class BaseListener {
    * Starts Listener
    * @param {*} opts Object containing options required
    */
-  _startListener(opts) {
+  startListener(opts) {
     console.error("Must Override this function in Child Listener");
   }
 

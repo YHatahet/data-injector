@@ -29,7 +29,7 @@ module.exports = class Library {
           if (ListenerMap[key]) {
             this.listeners[key] = new ListenerMap[key](options);
             if (this.listeners[key]) {
-              this.listeners[key]._startListener(config.listeners[key]);
+              this.listeners[key].startListener(config.listeners[key]);
             }
           }
         } catch (err) {
@@ -50,7 +50,7 @@ module.exports = class Library {
           if (PublisherMap[key]) {
             this.publishers[key] = new PublisherMap[key](options);
             if (this.publishers[key]) {
-              this.publishers[key]._startPublisher(config.publishers[key]);
+              this.publishers[key].startPublisher(config.publishers[key]);
               this.publisherQueues[key] = new Queue(); //attach a queue to each publisher
             }
           }

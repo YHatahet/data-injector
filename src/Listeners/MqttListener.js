@@ -17,7 +17,7 @@ module.exports = class MqttListener extends BaseListener {
     this.options;
   }
 
-  _startListener(opts) {
+  startListener(opts) {
     try {
       this.options = opts;
       const dataTopic = opts.topic;

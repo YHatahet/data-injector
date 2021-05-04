@@ -21,7 +21,7 @@ module.exports = class MqttPublisher extends BasePublisher {
    * Starts mqtt Publisher
    * @param {*} opts Object containing options required
    */
-  _startPublisher(opts) {
+  startPublisher(opts) {
     try {
       this.options = opts;
 
