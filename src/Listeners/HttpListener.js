@@ -31,7 +31,7 @@ module.exports = class HttpListener extends BaseListener {
       })
       .listen(OPTIONS.port || 3000, "0.0.0.0", (err, address) => {
         if (err) throw err;
-        console.info(`httpListener: listening on ${address}`);
+        console.info(`httpListener: listening on port ${OPTIONS.port || 3000}`);
       });
   }
 };
