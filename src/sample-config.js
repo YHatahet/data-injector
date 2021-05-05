@@ -14,6 +14,9 @@ module.exports = {
     http: {
       port: "<port number>",
     },
+    tcp: {
+      port: "<port number>",
+    },
   },
   publishers: {
     mqtt: {

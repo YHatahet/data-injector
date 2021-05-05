@@ -4,4 +4,5 @@
 module.exports = {
   mqtt: require("./MqttListener"),
   http: require("./HttpListener"),
+  tcp: require("./TcpListener"),
 };
