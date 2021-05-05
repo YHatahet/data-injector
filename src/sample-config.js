@@ -30,7 +30,7 @@ module.exports = {
     },
   },
   pairs: {
-    protocolA: "protocolB",
+    listener_protocol: "publisher_protocol",
     // ex:
     // http: "mqtt",
   },
